@@ -6,19 +6,33 @@ import java.util.Map;
 
 public class Ejercicio3 {
 
-	public static Long iterativo(Integer a, Integer b, Integer c) {
+	public static Long iterativo(Integer A, Integer B, Integer C) {
 		
-		while (!(a < 3 || b < 3 || c < 3)) {
-			
-			if (a%b==0) {
-				
-			} else {
-				
-			}
-			
-		}
-		
-		return (long) a + (b*b) + (2*c);
+		Map<Tupla, Long> dp = new HashMap<>();
+
+        // Recorremos todos los estados desde abajo hacia arriba
+        for (int a = 0; a <= A; a++) {
+            for (int b = 0; b <= B; b++) {
+                for (int c = 0; c <= C; c++) {
+                    long res;
+                    if (a < 3 || b < 3 || c < 3) {
+                        // Caso base
+                        res = (long) a + (b * b) + (2 * c);
+                    } else if (b != 0 && a % b == 0) {
+                        // Caso divisible
+                        res = dp.get(new Tupla(a - 1, b / 2, c / 2))
+                            + dp.get(new Tupla(a - 3, b / 3, c / 3));
+                    } else {
+                        // Caso no divisible
+                        res = dp.get(new Tupla(a / 3, b - 3, c - 3))
+                            + dp.get(new Tupla(a / 2, b - 2, c - 2));
+                    }
+                    dp.put(new Tupla(a, b, c), res);
+                }
+            }
+        }
+
+        return dp.get(new Tupla(A, B, C));
 	}
 
 	public static Long recursivo_sin_memoria(Integer a, Integer b, Integer c) {

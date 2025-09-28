@@ -34,8 +34,7 @@ public class Ejercicio1 {
 					.collect(Collectors.groupingBy(String::length));
 	}
 	
-	public static Map<Integer, List<String>> solucionIterativa(
-	        Integer varA, String varB, Integer varC, String varD, Integer varE) {
+	public static Map<Integer, List<String>> solucionIterativa(Integer varA, String varB, Integer varC, String varD, Integer varE) {
 	    
 	    // Usamos un Map para agrupar por longitud
 	    Map<Integer, List<String>> resultado = new HashMap<>();
