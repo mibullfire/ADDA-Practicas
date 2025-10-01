@@ -36,49 +36,73 @@ public class Ejercicio1 {
 	
 	public static Map<Integer, List<String>> solucionIterativa(Integer varA, String varB, Integer varC, String varD, Integer varE) {
 	    
-	    // Usamos un Map para agrupar por longitud
-	    Map<Integer, List<String>> resultado = new HashMap<>();
-	    
-	    // Caso límite: si varA o varB son nulos, o varE es nulo, devolvemos mapa vacío
-	    if (varA == null || varB == null || varC == null || varD == null || varE == null) {
-	        return resultado;
-	    }
-	    
-	    // Creamos el primer elemento
-	    EnteroCadena actual = EnteroCadena.of(varA, varB);
-	    
-	    // Mientras la condición se cumpla (igual que en el Stream.iterate)
-	    while (actual.a() < varC) {
-	        
-	        // Construir el String = elem.s() + varD
-	        String cadena = actual.s() + varD;
-	        
-	        // Filtro: longitud < varE
-	        if (cadena.length() < varE) {
-	            int len = cadena.length();
-	            // Agrupamos por longitud
-	            resultado.computeIfAbsent(len, k -> new ArrayList<>()).add(cadena);
+		EnteroCadena e = EnteroCadena.of(varA, varB);
+	    Map<Integer, List<String>> ac = new HashMap<>();
+
+	    while (e.a() < varC) {
+	        // 1) Map: usar el elemento actual (s) + varD
+	        String s = e.s() + varD;
+	        if (s.length() < varE) {
+	        	if (ac.containsKey(s.length())) {
+	        	    ac.get(s.length()).add(s);
+	        	} else {
+	        	    List<String> nuevaLista = new ArrayList<>();
+	        	    nuevaLista.add(s);
+	        	    ac.put(s.length(), nuevaLista);
+	        	}
 	        }
-	        
-	        // Calcular el siguiente EnteroCadena (equivalente al UnaryOperator nx)
-	        int nuevoA = actual.a() + 2;
-	        String nuevoS;
-	        if (actual.a() % 3 == 0) {
-	            // concatenar el número
-	            nuevoS = actual.s() + actual.a().toString();
+
+	        // 2) Calcular el siguiente elemento usando nx (usa el 'a' actual)
+	        String nextS;
+	        if (e.a() % 3 == 0) {
+	            nextS = e.s() + e.a().toString();
 	        } else {
-	            // cuidado: proteger contra String vacío
-	            int mod = actual.s().length() == 0 ? 0 : actual.a() % actual.s().length();
-	            nuevoS = actual.s().substring(mod);
+	            nextS = e.s().substring(e.a() % e.s().length());
 	        }
+	        Integer nextA = e.a() + 2;
+
+	        // 3) Avanzar al siguiente elemento
 	        
-	        actual = EnteroCadena.of(nuevoA, nuevoS);
+	        e = EnteroCadena.of(nextA, nextS);
+	       
 	    }
-	    
-	    return resultado;
+
+	    return ac;
 	}
 	
 	public static Map<Integer,List<String>> solucionRecursivaFinal(Integer varA, String varB, Integer varC, String varD, Integer varE) {
-		return null;
+		EnteroCadena e = EnteroCadena.of(varA, varB);
+		return recFinal(e, new HashMap<>(), varA, varB, varC, varD, varE);
+	}
+	
+	private static Map<Integer, List<String>> recFinal(EnteroCadena e, Map<Integer, List<String>> ac, Integer varA, String varB, Integer varC, String varD, Integer varE){
+		Map<Integer, List<String>> r = ac;
+		if (e.a() < varC) {
+			
+	        String s = e.s() + varD;
+	        if (s.length() < varE) {
+	        	if (ac.containsKey(s.length())) {
+	        	    ac.get(s.length()).add(s);
+	        	} else {
+	        	    List<String> nuevaLista = new ArrayList<>();
+	        	    nuevaLista.add(s);
+	        	    ac.put(s.length(), nuevaLista);
+	        	}
+	        }
+
+	        String nextS;
+	        if (e.a() % 3 == 0) {
+	            nextS = e.s() + e.a().toString();
+	        } else {
+	            nextS = e.s().substring(e.a() % e.s().length());
+	        }
+	        Integer nextA = e.a() + 2;
+	        
+	        e = EnteroCadena.of(nextA, nextS);
+	        
+	        r = recFinal(e, ac, varA, varB, varC, varD, varE);
+		}
+		
+		return r;
 	}
 }
