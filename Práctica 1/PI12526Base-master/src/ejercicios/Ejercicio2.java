@@ -1,7 +1,12 @@
 package ejercicios;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Ejercicio2 {
 	
@@ -66,8 +71,31 @@ public class Ejercicio2 {
 		
 	}
 	
+	public record Tupla(Integer a, Integer b) {};
+	
 	public static List<Integer> f_funcional (Integer a, Integer b) {
-		return null;
+		
+		UnaryOperator<Tupla> nx = t -> {
+		    if (t.a() > t.b()) {
+		        return new Tupla(t.a() % t.b(), t.b() - 1);
+		    } else {
+		        return new Tupla(t.a() - 2, t.b() / 2);
+		    }
+		};
+		
+		
+		List<Tupla> tuplas =  Stream.iterate(new Tupla(a, b), t -> !(t.a() < 2 || t.b() < 2), nx).toList();
+		
+		List<Integer> res = new ArrayList<>(tuplas.stream().map(t -> (t.a() > t.b()) ? t.a() : t.b()).toList());
+		
+		// fix de chatgpt para el ultimo elemento (es decir, el primero)
+	    // -> aquí está el fix: si no hay tuplas incluidas, la tupla terminal es (a,b) inicial,
+	    //    en otro caso la tupla terminal es nx.apply(últimaTuplaIncluida)
+	    Tupla terminal = tuplas.isEmpty() ? new Tupla(a, b) : nx.apply(tuplas.get(tuplas.size() - 1));
+	    res.add(terminal.a() * terminal.b()); // producto con la tupla terminal);
+	    
+		Collections.reverse(res);
+		return res;
 	}
 
 }
