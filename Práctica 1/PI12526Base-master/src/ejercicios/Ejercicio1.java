@@ -40,7 +40,6 @@ public class Ejercicio1 {
 	    Map<Integer, List<String>> ac = new HashMap<>();
 
 	    while (e.a() < varC) {
-	        // 1) Map: usar el elemento actual (s) + varD
 	        String s = e.s() + varD;
 	        if (s.length() < varE) {
 	        	if (ac.containsKey(s.length())) {
@@ -51,19 +50,10 @@ public class Ejercicio1 {
 	        	    ac.put(s.length(), nuevaLista);
 	        	}
 	        }
-
-	        // 2) Calcular el siguiente elemento usando nx (usa el 'a' actual)
-	        String nextS;
-	        if (e.a() % 3 == 0) {
-	            nextS = e.s() + e.a().toString();
-	        } else {
-	            nextS = e.s().substring(e.a() % e.s().length());
-	        }
-	        Integer nextA = e.a() + 2;
-
-	        // 3) Avanzar al siguiente elemento
 	        
-	        e = EnteroCadena.of(nextA, nextS);
+	        e = EnteroCadena.of(e.a()+2, e.a()%3==0?
+					e.s()+e.a().toString():
+					e.s().substring(e.a()%e.s().length()));
 	       
 	    }
 
@@ -88,17 +78,11 @@ public class Ejercicio1 {
 	        	    nuevaLista.add(s);
 	        	    ac.put(s.length(), nuevaLista);
 	        	}
-	        }
+		    }
 
-	        String nextS;
-	        if (e.a() % 3 == 0) {
-	            nextS = e.s() + e.a().toString();
-	        } else {
-	            nextS = e.s().substring(e.a() % e.s().length());
-	        }
-	        Integer nextA = e.a() + 2;
-	        
-	        e = EnteroCadena.of(nextA, nextS);
+	        e = EnteroCadena.of(e.a() + 2, e.a()%3==0?
+					e.s()+e.a().toString():
+					e.s().substring(e.a()%e.s().length()));
 	        
 	        r = recFinal(e, ac, varA, varB, varC, varD, varE);
 		}
