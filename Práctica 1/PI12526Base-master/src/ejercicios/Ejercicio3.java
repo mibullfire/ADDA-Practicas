@@ -3,13 +3,13 @@ package ejercicios;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class Ejercicio3 {
 
 	public static Long iterativo(Integer A, Integer B, Integer C) {
 		
 		Map<Tupla, Long> dp = new HashMap<>();
 
+		// En vez de con tuplas se pueden trabajar con "Trios" Trio.of(a, b, c)
         // Recorremos todos los estados desde abajo hacia arriba
         for (int a = 0; a <= A; a++) {
             for (int b = 0; b <= B; b++) {
@@ -31,7 +31,6 @@ public class Ejercicio3 {
                 }
             }
         }
-
         return dp.get(new Tupla(A, B, C));
 	}
 
@@ -47,8 +46,7 @@ public class Ejercicio3 {
 	record Tupla(Integer a, Integer b, Integer c) {};
 	
 	public static Long recursivo_con_memoria(Integer a, Integer b, Integer c) {
-		Map<Tupla, Long> mem = new HashMap<Tupla, Long>();
-		Long r = recursivo_con_memoria(a, b, c, mem);
+		Long r = recursivo_con_memoria(a, b, c, new HashMap<Tupla, Long>());
 		return r;
 	}
 	
