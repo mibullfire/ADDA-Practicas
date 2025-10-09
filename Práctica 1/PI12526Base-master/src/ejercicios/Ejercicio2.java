@@ -8,18 +8,16 @@ public class Ejercicio2 {
 	
 	// ===== RECURSIVA NO FINAL ===== //
 	public static List<Integer> f_RNF (Integer a, Integer b) {
-		List<Integer> res = new ArrayList<Integer>();
-		if (a < 2 || b < 2) res.add(a*b);
+		List<Integer> ac = new ArrayList<Integer>();
+		if (a < 2 || b < 2) ac.add(a*b);
 		else if (a > b) {
-			List<Integer> rec = f_RNF(a%b, b-1);
-			rec.add(a);
-			return rec;
+			ac = f_RNF(a%b, b-1);
+			ac.add(a);
 		} else {
-			List<Integer> rec = f_RNF(a-2, b/2);
-			rec.add(b);
-			return rec;
+			ac = f_RNF(a-2, b/2);
+			ac.add(b);
 		}
-		return res;
+		return ac;
 	}
 	
 	// ===== ITERATIVA ===== //
