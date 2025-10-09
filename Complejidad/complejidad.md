@@ -11,18 +11,6 @@ Bucle donde se repite una operacion un número de $n$ veces.
 
 $$\sum^n_{i=1}1 \cong n$$
 
-## Ejercicio 2
-
-```java
-i=n;
-while (i >= 1) {
-    s = s + i;
-    i = i / r;
-}
-```
-
-*Completar*
-
 ## Ejercicio 4
 
 ```java
@@ -49,6 +37,8 @@ Luego tendríamos:
 
 $$T(n)=\sum_{i=1}^n \left(\frac{1}{2}(n^2-i^2)\right)=n^3-\frac{n^3}{3}=\frac{2}{3}n^3= n^3$$
 
+## Ejercicio 8
+
 ## Ejercicio 12
 
 ```java
@@ -73,3 +63,29 @@ $$T(n) = T(n/2)+T(n/2)+\sum^n_{i=1}1=2 \cdot T \left( \frac{n}{2} \right)+n$$
 Mirando la *Hoja de Ayuda*, tenemos que: $T(n)=aT(n/b)+n^d \log^pn$, siendo: $a=2$, $b=2$, $d=1$ y $p=0$. Como $a=b^d$, entonces:
 
 $$T(n)=n^1log^{0+1}n=n\cdot \log n$$
+
+## Ejercicio 13
+
+```java
+int f (int a, b) { 
+    int r; 
+    if (a == 0 || b == 0) { 
+        r = 1; 
+    } else { 
+        r = 2 * f (a–1, b–1); 
+    } 
+    return r; 
+}
+```
+
+El que nos da el tiempo va a ser el mínimo entre las variables $a$ y $b$. Pues el programa se corta cuando una de las dos llegue a $0$.
+
+$$n=min(a,b)$$
+
+Analizando el código:
+
+$$T(n)=T(n-1)+1$$
+
+Consultando la *Hoja de Examen*, vemos que es de la forma $aT(n-b)+n^dlog^pn$. Donde $a=1$, $b=1$, $d=p=0$, y como $a=1$:
+
+$$T(n) = n$$

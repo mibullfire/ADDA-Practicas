@@ -8,7 +8,7 @@ En este repositorio se encuentran las correcciones y ejercicios de práctica hec
 
 Ejercicios resueltos de complejidad.
 
-*Pasar a limpio el 8 y el 13.*
+*Pasar a limpio el 8.*
 
 ### 📁 Factorial
 
