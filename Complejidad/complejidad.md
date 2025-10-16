@@ -89,3 +89,75 @@ $$T(n)=T(n-1)+1$$
 Consultando la *Hoja de Examen*, vemos que es de la forma $aT(n-b)+n^dlog^pn$. Donde $a=1$, $b=1$, $d=p=0$, y como $a=1$:
 
 $$T(n) = n$$
+
+## Ejercicio 14
+
+```c++
+int f (int n) {
+    int i, j, z, r;
+    if (n < 1) {
+        
+    } else {
+        z = 0;
+        for (i = 1; i < n; i++) {
+            for (j = 1; j < i ∗ i; j++) {
+                z ++;
+            }
+        }
+        r = z ∗ (( f (n – 2)) ^ 2);
+    }
+    return r;
+}
+```
+
+$$ T(n) = T(n-2)+ \sum^n_{i=1} \left( \sum^?_{j=1}1 \right)=T(n-2)+\sum^n_{i=1}? = T(n-2)+\frac{1}{3}n^3$$
+
+Es del caso A, donde $a=1$, $d=3$, $b=2$, $p=0$. Luego:
+$$T(n)=n^4$$
+
+(...*Falta algo de contenido del libro de Miguel Toro*...)
+
+## Ejercicio 15
+
+```java
+int f (int [] a, int n) {
+    return g (a, n, 0);
+}
+int g (int [] a, int n, int i) {
+    int s;
+    if (n-i==0) {
+        s = r;
+    } else {
+        r += a[i];
+        s = g (a,i+1);
+    }
+    return s;
+}
+```
+
+La función *g* recibe tres parametros, y cuanto más cercanos sean los valores de $n$ e $i$, antes estaremos más cerca del valor cero. Como tamaño de problema, en esta función influyen tanto la $n$ como la $i$.
+
+$$x= n-i$$
+
+Siendo $x$ el tamaño real del problema.
+$$T_g(x)=T_g(x')$$
+
+Si incrementamos la i:
+$$x'=n-i'=n-(i+1)=n-i-1=x-1$$
+
+Luego:
+$$T_g(x-1)+1$$
+
+Estamos ante el Caso A, con $a=1$, $b=1$, $d=0$, $p=0$. Entonces
+$$T_g(x-1)+1 \in (x)$$
+
+Con respecto a la función *f*, el tamaño del problema es $n$.
+$$T_f(n)=T_g(n-0)=n \in (n)$$
+
+## Ejercicio 16
+
+*Hacer en casa*
+
+## Ejercicio 17
+
+Depende de los ejercicios 7 y 8.
