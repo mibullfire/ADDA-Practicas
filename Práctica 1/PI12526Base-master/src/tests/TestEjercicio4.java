@@ -17,10 +17,16 @@ import us.lsi.curvefitting.PowerLog;
 import us.lsi.graphics.MatPlotLib;
 
 public class TestEjercicio4 {
-		
+	
+	// Datos!!
 	
 	public static void main(String[] args) {
+		
+		// Llamada a las funciones de abajo con los datos de arriba, por rellenar.
+		
 		}
+	
+	// Funciones
 
 	
 }
