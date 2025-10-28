@@ -19,8 +19,8 @@ import us.lsi.graphics.MatPlotLib;
 public class TestEjercicio5 {
 		
 	// Datos
-	private static Integer tMin 					= 50;
-	private static Integer tMax 					= 5125;
+	private static Integer tMin 				= 50;
+	private static Integer tMax 				= 5125;
 	private static Integer razon 				= 175;
 	private static Integer nIterDouble 			= 2000;
 	private static Integer nIterBigInteger 		= 400;
@@ -30,7 +30,7 @@ public class TestEjercicio5 {
 	
 	private static String fileRecDouble			= "resources/datos/";
 	private static String fileRecBigInteger		= "";
-	private static String fileIterDouble			= "";
+	private static String fileIterDouble		= "";
 	private static String fileIterBigInteger	= "";
 	
 	public static void main(String[] args) {

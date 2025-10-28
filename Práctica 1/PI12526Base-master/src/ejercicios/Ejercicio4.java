@@ -17,11 +17,21 @@ public class Ejercicio4 {
 	}
 	
 	public static Double funcItDouble(Integer a) {
-		return null;
+		Double res = 5.;
+		while (!(a<10)) {
+			res = res * Math.sqrt(a*3);
+			a -= 2;
+		}
+		return res;
 	}
 	
 	public static BigInteger funcItBig(Integer a) {
-		return null;
+		BigInteger res = BigInteger.valueOf(5);
+		while (!(a<10)) {
+			res = BigInteger.valueOf(a*3).sqrt().multiply(res);
+			a -= 2;
+		}
+		return res;
 	}
 
 }
