@@ -19,14 +19,16 @@ import us.lsi.graphics.MatPlotLib;
 public class TestEjercicio4 {
 	
 	// Datos!!
-	private static Integer tMin 				= 0;
-	private static Integer tMax 				= 0;
-	private static Integer razonDouble 				= 0;
-	private static Integer razonBigInteger		= 0;
-	private static Integer nDouble 			= 0;
-	private static Integer nBigInteger 		= 0;
+	private static Integer tMin 				= 100;
+	private static Integer tMax 				= 20000;
+	private static Integer razonDouble 				= 250;
+	private static Integer razonBigInteger		= 800;
+	private static Integer nDouble 			= 300;
+	private static Integer nIter = 10;
+	private static Integer nIterDouble = 500;
 	
-	private static Integer tWarmup 		= 0;
+	private static Integer tWarmup 		= 1;
+	private static Integer tWarmupDouble = 4;
 	
 	
 	private static String file1 = "resources/datos/tmp/RecDouble.txt";
