@@ -1,6 +1,7 @@
 package tests;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -17,15 +18,22 @@ import us.lsi.curvefitting.PowerLog;
 import us.lsi.graphics.MatPlotLib;
 
 public class TestEjercicio4 {
+	private static Integer nMin = 10;
+	private static Integer nMax = 1000;
+	private static Integer razon = 100;
+	private static Integer nIter = 5;
+	private static Integer nIterWarmup = 100;
+
 	
 	// Datos!!
-	private static Integer tMin 				= 100;
-	private static Integer tMax 				= 20000;
-	private static Integer razonDouble 				= 250;
+	/*
+	private static Integer nMin 				= 100;
+	private static Integer nMax 				= 20000;
+	private static Integer razon 				= 250;
 	private static Integer razonBigInteger		= 800;
 	private static Integer nDouble 			= 300;
 	private static Integer nIter = 10;
-	private static Integer nIterDouble = 500;
+	private static Integer nIterWarmup = 500;
 	
 	private static Integer tWarmup 		= 1;
 	private static Integer tWarmupDouble = 4;
@@ -35,116 +43,45 @@ public class TestEjercicio4 {
 	private static String file2 = "resources/datos/tmp/RecBigInteger.txt";
 	private static String file3 = "resources/datos/tmp/ItDouble.txt";
 	private static String file4 = "resources/datos/tmp/ItBigInteger.txt";
-	
-	public static void main(String[] args) {
-		
-		// Llamada a las funciones de abajo con los datos de arriba, por rellenar.
-		
-		genDataRecDouble();
-		genDataItDouble();
-		genDataRecBig();
-		genDataItBig();
-		
-		showRecBig();
-		showItBig();
-		
-		showCombined();
-		
-		}
+	*/
 	
 	// Funciones
 	
-	private static Integer warmup(Function<Integer, Long> ft, Integer t) {
-		Long ns = ft.apply(t);
-		Double niw = tWarmup * Math.pow(10., 9) / ns;
-		return Math.max(5, niw.intValue());
-	}
+	private static Integer a = 3;
 	
-	private static void genDataRecDouble() {
-		Function<Integer, Long> ft = GenData.time(t-> Ejercicio4.funcRecDouble(t));
-		Function<Integer, Integer> fw = t -> warmup(ft, t);
-		GenData.tiemposEjecucionAritmetica(ft, file1, tMin, tMax, razonDouble, nDouble, fw);
-		String2.toConsole("Se ha creado el fichero: %s\n\n", file1); // linea(".")??
-		System.gc();
-		
-	}
-	private static void genDataItDouble() {
-		Function<Integer, Long> ft = GenData.time(t-> Ejercicio4.funcItDouble(t));
-		Function<Integer, Integer> fw = t -> warmup(ft, t);
-		GenData.tiemposEjecucionAritmetica(ft, file2, tMin, tMax, razonDouble, nDouble, fw);
-		String2.toConsole("Se ha creado el fichero: %s\n\n", file2);
-		System.gc();
-		
-	}
-	private static void genDataRecBig() {
-		Function<Integer, Long> ft = GenData.time(t-> Ejercicio4.funcRecDouble(t));
-		Function<Integer, Integer> fw = t -> warmup(ft, t);
-		GenData.tiemposEjecucionAritmetica(ft, file3, tMin, tMax, razonBigInteger, nBigInteger, fw);
-		String2.toConsole("Se ha creado el fichero: %s\n\n", file3);
-		System.gc();
-		
-	}
-	private static void genDataItBig() {
-		Function<Integer, Long> ft = GenData.time(t-> Ejercicio4.funcRecDouble(t));
-		Function<Integer, Integer> fw = t -> warmup(ft, t);
-		GenData.tiemposEjecucionAritmetica(ft, file4, tMin, tMax, razonBigInteger, nBigInteger, fw);
-		String2.toConsole("Se ha creado el fichero: %s\n\n", file4);
-		System.gc();
-		
-	}
-	
-	private static void showRecDouble() {
-		List<WeightedObservedPoint> datos = DataFile.points(file1);
-		var params = List.of(Pair.of(1, 2.), Pair.of(2, 0.), Pair.of(3, 0.));
-		Fit ajuste = PowerLog.of(params);
-		double[] v = ajuste.fit(datos);
-		String exp = String.format("%.2f n^2", v[0]);
-		
-		String2.toConsole("Curva obtenida: %s", ajuste.getExpression());
-		String2.toConsole("Error en el ajuste (min. cuad.): %s", ajuste.getEvaluation());
-		MatPlotLib.show(file1,  ajuste.getFunction(), "Recursiva-Double: " +exp);
-	}
-	
-	private static void showItDouble() {
-		List<WeightedObservedPoint> datos = DataFile.points(file2);
-		var params = List.of(Pair.of(1, 2.), Pair.of(2, 0.), Pair.of(3, 0.));
-		Fit ajuste = PowerLog.of(params);
-		double[] v = ajuste.fit(datos);
-		String exp = String.format("%.2f n^2", v[0]);
-		
-		String2.toConsole("Curva obtenida: %s", ajuste.getExpression());
-		String2.toConsole("Error en el ajuste (min. cuad.): %s", ajuste.getEvaluation());
-		MatPlotLib.show(file2,  ajuste.getFunction(), "Iterativa-Double: " +exp);
-	}
-	
-	private static void showRecBig() {
-		List<WeightedObservedPoint> datos = DataFile.points(file3);
-		var params = List.of(Pair.of(1, 2.), Pair.of(2, 0.), Pair.of(3, 0.));
-		Fit ajuste = PowerLog.of(params);
-		double[] v = ajuste.fit(datos);
-		String exp = String.format("%.2f n^2", v[0]);
-		
-		String2.toConsole("Curva obtenida: %s", ajuste.getExpression());
-		String2.toConsole("Error en el ajuste (min. cuad.): %s", ajuste.getEvaluation());
-		MatPlotLib.show(file3,  ajuste.getFunction(), "Recursiva-BigInteger: " +exp);
-	}
-	
-	private static void showItBig() {
-		List<WeightedObservedPoint> datos = DataFile.points(file4);
-		var params = List.of(Pair.of(1, 2.), Pair.of(2, 0.), Pair.of(3, 0.));
-		Fit ajuste = PowerLog.of(params);
-		double[] v = ajuste.fit(datos);
-		String exp = String.format("%.2f n^2", v[0]);
-		
-		String2.toConsole("Curva obtenida: %s", ajuste.getExpression());
-		String2.toConsole("Error en el ajuste (min. cuad.): %s", ajuste.getEvaluation());
-		MatPlotLib.show(file4,  ajuste.getFunction(), "Iterativa-BigInteger: " +exp);
-	}
-	
-	private static void showCombined() {
-		MatPlotLib.showCombined("Tiempos", List.of(file1, file2, file3, file4), 
-				List.of("Recursiva-Double", "Iterativa-Double", "Recursiva-BigInteger", "Iterativa-BigInteger"));
-	}
+	public static void genData (Consumer<Integer> algorithm, String file) {
+		Function<Integer,Long> f1 = GenData.time(algorithm);
+		GenData.tiemposEjecucionAritmetica(f1,file,nMin,nMax,razon,nIter,nIterWarmup);
 
+	}
+	
+	public static void show(Fit pl, String file, String label) {
+		List<WeightedObservedPoint> data = DataFile.points(file);
+		pl.fit(data);
+		MatPlotLib.show(file, pl.getFunction(), String.format("%s = %s",label,pl.getExpression()));
+	}
+	
+	
+	         
+	public static void showCombined() {
+		MatPlotLib.showCombined("Tiempos",
+				List.of("resources/funcItBig.txt","resources/funcItDouble.txt","resources/funcRecBig.txt", "resources/funcRecDouble.txt"), 
+				List.of("funcItBig","funcItDouble","funcRecBig", "funcRecDouble"));
+	}
+	
+
+	public static void main(String[] args) {
+		genData(t -> Ejercicio4.funcItBig(t),"resources/funcItBig.txt");
+		genData(t -> Ejercicio4.funcItDouble(t),"resources/funcItDouble.txt");
+		genData(t -> Ejercicio4.funcRecBig(t),"resources/funcRecBig.txt");
+		genData(t -> Ejercicio4.funcRecDouble(t),"resources/funcRecDouble.txt");
+		
+		show(PowerLog.of(List.of(Pair.of(2, 0.),Pair.of(3, 0.))), "resources/funcItBig.txt","funcItBig");
+		show(PowerLog.of(List.of(Pair.of(2, 0.),Pair.of(3, 0.))),"resources/funcItDouble.txt","funcItDouble");
+		show(PowerLog.of(List.of(Pair.of(1, 0.),Pair.of(2, 1.),Pair.of(3, 0.))),"resources/funcRecBig.txt","funcRecBig");
+		show(PowerLog.of(List.of(Pair.of(1, 0.),Pair.of(2, 1.),Pair.of(3, 0.))),"resources/funcRecDouble.txt","funcRecDouble");
+		
+		showCombined();
+	}
 	
 }
