@@ -18,10 +18,4 @@ Carpeta llena de mierdas y pruebas varias.
 
 `Nota`: dentro de la carpeta './Práctica 1' esta el proyecto `PI12526Base-master`, completamente funcional, y los archivos y enunciados pertinentes.
 
-#### Actualmente
-
-- Ejercicio 1: completo y corregido
-- Ejercicio 2: completo y corregido
-- Ejercicio 3: completo y no corregido
-- Ejercicio 4: n/a
-- Ejercicio 5: n/a
+La Práctica 1 ya está subida completa!
