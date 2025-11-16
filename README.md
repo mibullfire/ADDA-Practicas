@@ -22,4 +22,5 @@ La Práctica 1 ya está subida completa!
 
 ### 📁 Práctica 2
 
-En proceso, ejercicio 1 hecho a medias.
+- Ejercicio 1 hecho.
+- Ejercicio 2 hecho.
