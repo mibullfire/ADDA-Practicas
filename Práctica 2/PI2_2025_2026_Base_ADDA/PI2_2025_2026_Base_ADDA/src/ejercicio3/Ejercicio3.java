@@ -7,7 +7,10 @@ import java.util.Set;
 
 import org.jgrapht.Graph;
 
+import us.lsi.colors.GraphColors;
+import us.lsi.colors.GraphColors.Color;
 import us.lsi.common.Pair;
+import us.lsi.graphs.views.SubGraphView;
 
 
 public class Ejercicio3 {
@@ -19,7 +22,10 @@ public class Ejercicio3 {
 	 */
 	
 	public static Graph<Investigador,Colaboracion> getSubgraph_EJ3A(Graph <Investigador, Colaboracion> g ) {
-		return null;
+		
+		Graph<Investigador, Colaboracion> vista = SubGraphView.of(g, v->v.getFNacimiento() < 1982, a->a.getNColaboraciones() > 5);
+		
+		return vista;
 	}
 	
 	public static List<Investigador> getMayoresColaboradores_E3B (Graph<Investigador,Colaboracion> g) {
