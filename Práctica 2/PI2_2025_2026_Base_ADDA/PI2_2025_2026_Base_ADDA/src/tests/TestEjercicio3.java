@@ -1,5 +1,8 @@
 package tests;
 
+import java.util.List;
+import java.util.Map;
+
 import org.jgrapht.Graph;
 
 import ejercicio3.Colaboracion;
@@ -34,18 +37,33 @@ public class TestEjercicio3 {
 				e->GraphColors.color(Color.black));
 		
 		System.out.println("\nArchivo " + file + ".txt \n" + "Datos de entrada: " + g);
-		
+		System.out.println("Revisar las cosas en:\n				-> https://graph.flyte.org/ <-");
 		/// === Apartado A === ///
 		Graph<Investigador,Colaboracion> gA = Ejercicio3.getSubgraph_EJ3A(g);
 		
 		GraphColors.toDot(g,"ficheros_generados/PI2E3_ApartadoA.gv",
-				v->String.valueOf(v.getId()), //que etiqueta mostrar en vertices y aristas
-				e->String.valueOf(e.getNColaboraciones()),
+				v->String.valueOf("INV-"+v.getId()+" "+v.getFNacimiento()), //que etiqueta mostrar en vertices y aristas
+				e->String.valueOf(e.getNColaboraciones().intValue()),
 				v->GraphColors.colorIf(Color.blue, gA.containsVertex(v)),
-				e->GraphColors.colorIf(Color.black, gA.containsEdge(e)));
+				e->GraphColors.colorIf(Color.blue, gA.containsEdge(e)));
 		
-		System.out.println("ApartadoA OK");
-	
+		System.out.println("\n	- ApartadoA OK! Revisar archivo ficheros_generados/PI2E3_ApartadoA.gv");
+		
+		/// === Apartado B === ///
+		List<Investigador> lB = Ejercicio3.getMayoresColaboradores_E3B(g);
+		GraphColors.toDot(g,"ficheros_generados/PI2E3_ApartadoB.gv",
+				v->String.valueOf("INV-"+v.getId()), //que etiqueta mostrar en vertices y aristas
+				e->String.valueOf(e.getNColaboraciones().intValue()),
+				v->GraphColors.colorIf(Color.blue, Color.green, lB.contains(v)),
+				e->GraphColors.color(Color.green));
+		
+		System.out.println("\n	- ApartadoB OK! Revisar archivo ficheros_generados/PI2E3_ApartadoB.gv");
+		
+		/// === Apartado B === ///
+		Map<Investigador, List<Investigador>> mC = Ejercicio3.getMapListaColabroradores_E3C(g);
+		
+		System.out.println(mC);
+		
 	}
 	
 }
