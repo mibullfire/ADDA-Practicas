@@ -3,7 +3,7 @@ package ejercicio3;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import java.util.function.Predicate;
 
 import org.jgrapht.Graph;
 
@@ -15,16 +15,15 @@ import us.lsi.graphs.views.SubGraphView;
 
 public class Ejercicio3 {
 
-
-
 	/*
 	 * EJERCICIO 3 APARTADO A
 	 */
 	
 	public static Graph<Investigador,Colaboracion> getSubgraph_EJ3A(Graph <Investigador, Colaboracion> g ) {
-		
-		Graph<Investigador, Colaboracion> vista = SubGraphView.of(g, v->v.getFNacimiento() < 1982, a->a.getNColaboraciones() > 5);
-		
+		// Predicados
+		Predicate<Investigador> pv1 = i -> i.getFNacimiento() < 1982;
+		Predicate<Colaboracion> pv2 = c -> c.getNColaboraciones() > 5;
+		Graph<Investigador, Colaboracion> vista = SubGraphView.of(g, pv1, pv2);
 		return vista;
 	}
 	
