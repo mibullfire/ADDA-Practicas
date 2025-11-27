@@ -59,10 +59,10 @@ public class TestEjercicio3 {
 		
 		System.out.println("\n	- ApartadoB OK! Revisar archivo ficheros_generados/PI2E3_ApartadoB.gv");
 		
-		/// === Apartado B === ///
+		/// === Apartado C === ///
 		Map<Investigador, List<Investigador>> mC = Ejercicio3.getMapListaColabroradores_E3C(g);
 		
-		System.out.println(mC);
+		System.out.println(mC); // TODO: falta pintar el grafo con las aristas.
 		
 	}
 	
