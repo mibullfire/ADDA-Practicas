@@ -1,5 +1,6 @@
 package tests;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import ejercicio3.Investigador;
 import ejercicio3.Ejercicio3;
 import us.lsi.colors.GraphColors;
 import us.lsi.colors.GraphColors.Color;
+import us.lsi.common.Pair;
 import us.lsi.graphs.Graphs2;
 import us.lsi.graphs.GraphsReader;
 
@@ -61,9 +63,19 @@ public class TestEjercicio3 {
 		
 		/// === Apartado C === ///
 		Map<Investigador, List<Investigador>> mC = Ejercicio3.getMapListaColabroradores_E3C(g);
+		List<Colaboracion> C = new ArrayList<Colaboracion>();
+		for (Investigador i: mC.keySet()) {
+			Pair<Investigador, Colaboracion> par = Pair.of(i, g.getEdge(i, mC.get(i).getFirst()));
+			C.add(par.second());
+		}
+		GraphColors.toDot(g,"ficheros_generados/PI2E3_ApartadoC.gv",
+				v->String.valueOf("INV-"+v.getId()), //que etiqueta mostrar en vertices y aristas
+				e->String.valueOf(e.getNColaboraciones().intValue()),
+				v->GraphColors.color(Color.black),
+				e->GraphColors.colorIf(Color.blue, Color.black, C.contains(e)));
 		
-		System.out.println(mC); // TODO: falta pintar el grafo con las aristas.
-		
+		System.out.println("\n	- ApartadoC OK! Revisar archivo ficheros_generados/PI2E3_ApartadoC.gv");
+		System.out.println(mC);
 	}
 	
 }
