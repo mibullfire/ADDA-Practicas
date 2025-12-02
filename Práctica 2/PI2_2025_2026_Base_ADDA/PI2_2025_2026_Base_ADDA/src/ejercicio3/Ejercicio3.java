@@ -47,11 +47,13 @@ public class Ejercicio3 {
 	    return res;
 	}
 	
+	// == Apartado D == //
 	public static Pair<Investigador,Investigador> getParMasLejano_E3D (Graph<Investigador,Colaboracion> g) {
 	   return null;  
 		
 	}
 	
+	// == Apartado E == //
 	public static List<Set<Investigador>> getReuniones_E3E (Graph<Investigador,Colaboracion> g) {
 		return null;
 	}
