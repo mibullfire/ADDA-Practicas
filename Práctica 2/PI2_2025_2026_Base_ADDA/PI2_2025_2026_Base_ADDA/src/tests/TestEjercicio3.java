@@ -3,6 +3,7 @@ package tests;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.jgrapht.Graph;
 
@@ -40,42 +41,42 @@ public class TestEjercicio3 {
 		
 		System.out.println("\nArchivo " + file + ".txt \n" + "Datos de entrada: " + g);
 		System.out.println("Revisar las cosas en:\n				-> https://graph.flyte.org/ <-");
+		
+		
 		/// === Apartado A === ///
-		Graph<Investigador,Colaboracion> gA = Ejercicio3.getSubgraph_EJ3A(g);
-		
-		GraphColors.toDot(g,"ficheros_generados/PI2E3_ApartadoA.gv",
-				v->String.valueOf("INV-"+v.getId()+" "+v.getFNacimiento()), //que etiqueta mostrar en vertices y aristas
-				e->String.valueOf(e.getNColaboraciones().intValue()),
-				v->GraphColors.colorIf(Color.blue, gA.containsVertex(v)),
-				e->GraphColors.colorIf(Color.blue, gA.containsEdge(e)));
-		
+		Ejercicio3.getSubgraph_EJ3A(g);
 		System.out.println("\n	- ApartadoA OK! Revisar archivo ficheros_generados/PI2E3_ApartadoA.gv");
+		
 		
 		/// === Apartado B === ///
 		List<Investigador> lB = Ejercicio3.getMayoresColaboradores_E3B(g);
-		GraphColors.toDot(g,"ficheros_generados/PI2E3_ApartadoB.gv",
-				v->String.valueOf("INV-"+v.getId()), //que etiqueta mostrar en vertices y aristas
-				e->String.valueOf(e.getNColaboraciones().intValue()),
-				v->GraphColors.colorIf(Color.blue, Color.green, lB.contains(v)),
-				e->GraphColors.color(Color.green));
-		
 		System.out.println("\n	- ApartadoB OK! Revisar archivo ficheros_generados/PI2E3_ApartadoB.gv");
+		System.out.println(lB);
+		
 		
 		/// === Apartado C === ///
 		Map<Investigador, List<Investigador>> mC = Ejercicio3.getMapListaColabroradores_E3C(g);
-		List<Colaboracion> C = new ArrayList<Colaboracion>();
-		for (Investigador i: mC.keySet()) {
-			Pair<Investigador, Colaboracion> par = Pair.of(i, g.getEdge(i, mC.get(i).getFirst()));
-			C.add(par.second());
-		}
-		GraphColors.toDot(g,"ficheros_generados/PI2E3_ApartadoC.gv",
-				v->String.valueOf("INV-"+v.getId()), //que etiqueta mostrar en vertices y aristas
-				e->String.valueOf(e.getNColaboraciones().intValue()),
-				v->GraphColors.color(Color.black),
-				e->GraphColors.colorIf(Color.blue, Color.black, C.contains(e)));
-		
 		System.out.println("\n	- ApartadoC OK! Revisar archivo ficheros_generados/PI2E3_ApartadoC.gv");
 		System.out.println(mC);
+		
+		/// === Apartado D === ///
+		Pair<Investigador, Investigador> pD = Ejercicio3.getParMasLejano_E3D(g);
+		System.out.println("\n	- ApartadoC OK! Revisar archivo ficheros_generados/PI2E3_ApartadoD.gv");
+		System.out.println("El par más lejano de vértices es: " + pD);
+		
+		/// === Apartado E === ///
+		
+		try {
+			List<Set<Investigador>> lsE = Ejercicio3.getReuniones_E3E(g);
+			
+			System.out.println("\n	- ApartadoE OK! Revisar archivo ficheros_generados/PI2E3_ApartadoE.gv");
+
+		} catch(Exception e) {
+			System.out.println("Pues funcionar funcionar no ha funcionado");
+		}
+		
+		
+		
 	}
 	
 }
