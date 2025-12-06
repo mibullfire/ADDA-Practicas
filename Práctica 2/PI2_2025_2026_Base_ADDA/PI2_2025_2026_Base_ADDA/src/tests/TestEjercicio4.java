@@ -1,15 +1,10 @@
 package tests;
 
 import org.jgrapht.Graph;
-import org.jgrapht.graph.SimpleWeightedGraph;
 
 import ejercicio4.Calle;
 import ejercicio4.Ejercicio4;
 import ejercicio4.Interseccion;
-import us.lsi.colors.GraphColors;
-import us.lsi.colors.GraphColors.Color;
-import us.lsi.grafos.datos.Carretera;
-import us.lsi.grafos.datos.Ciudad;
 import us.lsi.graphs.Graphs2;
 import us.lsi.graphs.GraphsReader;
 

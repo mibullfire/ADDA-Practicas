@@ -1,6 +1,5 @@
 package tests;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -65,16 +64,12 @@ public class TestEjercicio3 {
 		System.out.println("El par más lejano de vértices es: " + pD);
 		
 		/// === Apartado E === ///
-		
-		try {
-			List<Set<Investigador>> lsE = Ejercicio3.getReuniones_E3E(g);
-			
-			System.out.println("\n	- ApartadoE OK! Revisar archivo ficheros_generados/PI2E3_ApartadoE.gv");
 
-		} catch(Exception e) {
-			System.out.println("Pues funcionar funcionar no ha funcionado");
-		}
-		
+		List<Set<Investigador>> lsE = Ejercicio3.getReuniones_E3E(g);
+		System.out.println(lsE);
+		System.out.println("\n	- ApartadoE OK! Revisar archivo ficheros_generados/PI2E3_ApartadoE.gv");
+
+
 		
 		
 	}

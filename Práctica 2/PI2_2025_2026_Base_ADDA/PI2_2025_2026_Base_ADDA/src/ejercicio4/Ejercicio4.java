@@ -10,15 +10,10 @@ import org.jgrapht.alg.tour.HeldKarpTSP;
 
 import us.lsi.colors.GraphColors;
 import us.lsi.colors.GraphColors.Color;
-import us.lsi.colors.GraphColors.Style;
-import us.lsi.grafos.datos.Carretera;
-import us.lsi.grafos.datos.Ciudad;
-
 
 public class Ejercicio4 {
 
 	public static GraphPath<Interseccion,Calle> getSubgraph_EJ4A(String mIn, String mOut,Graph <Interseccion, Calle> g, String ftest) {
-		var alg = new DijkstraShortestPath<>(g);
 		Interseccion origen = g.vertexSet().stream().filter(x->x.getNombre().equals(mIn)).findFirst().get();
 		Interseccion destino = g.vertexSet().stream().filter(x->x.getNombre().equals(mOut)).findFirst().get();
 		
