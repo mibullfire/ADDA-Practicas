@@ -24,3 +24,5 @@ La Práctica 1 ya está subida completa!
 
 - Ejercicio 1 hecho.
 - Ejercicio 2 hecho.
+- Ejercicio 3 cuasicompleto, a falta del último apartado.
+- Ejercicio 4 cuasicompleto, a falta del último apartado.
