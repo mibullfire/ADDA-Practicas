@@ -10,13 +10,17 @@ import java.util.function.Predicate;
 
 import org.jgrapht.Graph;
 import org.jgrapht.GraphPath;
+import org.jgrapht.Graphs;
+import org.jgrapht.alg.color.GreedyColoring;
+import org.jgrapht.alg.interfaces.VertexColoringAlgorithm.Coloring;
 import org.jgrapht.alg.shortestpath.BFSShortestPath;
+import org.jgrapht.graph.SimpleGraph;
 
 import us.lsi.colors.GraphColors;
 import us.lsi.colors.GraphColors.Color;
+import us.lsi.colors.GraphColors.Style;
 import us.lsi.common.Pair;
 import us.lsi.graphs.views.SubGraphView;
-
 
 public class Ejercicio3 {
 
@@ -111,7 +115,54 @@ public class Ejercicio3 {
 	
 	// == Apartado E == //
 	public static List<Set<Investigador>> getReuniones_E3E (Graph<Investigador,Colaboracion> g) {
-		return null;
+		
+		List<Set<Investigador>> res = new ArrayList<Set<Investigador>>(); 
+		
+	    Graph<Investigador, Colaboracion> grafoExtendido = 
+	        new SimpleGraph<>(Colaboracion.class);
+	    
+	    Graphs.addGraph(grafoExtendido, g);
+	    
+	    List<Investigador> vertices = new ArrayList<>(g.vertexSet());
+	    for (int i = 0; i < vertices.size(); i++) {
+	        for (int j = i + 1; j < vertices.size(); j++) {
+	            Investigador v1 = vertices.get(i);
+	            Investigador v2 = vertices.get(j);
+	            
+	            if (v1.getUniversidad().equals(v2.getUniversidad()) && 
+	                !grafoExtendido.containsEdge(v1, v2)) {
+	                grafoExtendido.addEdge(v1, v2, new Colaboracion());
+	            }
+	        }
+	    }
+
+		
+		var alg = new GreedyColoring<>(grafoExtendido); 
+		Coloring<Investigador> solucion = alg.getColoring();
+		System.out.println("Mesas necesarias: "+solucion.getNumberColors());
+		
+		List<Investigador> sinReunion = new ArrayList<Investigador>();
+		System.out.println("Composicion de las mesas");
+		var reuniones = solucion.getColorClasses();
+		for(int i=0; i<reuniones.size(); i++) {
+			System.out.println("Mesa numero "+(i+1)+": "+reuniones.get(i));
+			if(reuniones.get(i).size()>1) res.add(reuniones.get(i));
+			else {
+				Set<Investigador> tontos = reuniones.get(i);
+				sinReunion.add(tontos.stream().toList().get(0));		
+			}
+		}
+		
+		Map<Investigador, Integer> map = solucion.getColors(); 
+		GraphColors.toDot(g, "ficheros_generados/holaaa.gv", 
+				v->sinReunion.contains(v) ? v.getId()+" "+v.getUniversidad():v.getId()+" "+v.getUniversidad()+" / r"+(map.get(v)+1), 
+				e->e.getNColaboraciones()+"",
+				v -> GraphColors.color(map.get(v)),
+				e -> GraphColors.style(Style.solid));
+		
+		System.out.println("C.gv generado en " + "ficheros_generados/p2/ejemplo5");
+		
+		return res;
 	}
 
 }

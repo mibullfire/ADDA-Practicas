@@ -13,12 +13,9 @@ public class TestEjercicio4 {
 
 	public static void main(String[] args) {
 		test("PI2E4_DatosEntrada");
-		
-
 	}
 	
 	private static void test(String fichero) {
-		
 		
 		Graph<Interseccion,Calle> gDuracion =  
 				GraphsReader.newGraph("ficheros/" + fichero + ".txt",
