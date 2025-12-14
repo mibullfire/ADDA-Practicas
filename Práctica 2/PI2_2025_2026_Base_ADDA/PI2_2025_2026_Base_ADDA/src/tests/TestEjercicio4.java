@@ -1,5 +1,8 @@
 package tests;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.jgrapht.Graph;
 
 import ejercicio4.Calle;
@@ -52,6 +55,27 @@ public class TestEjercicio4 {
 		
 		System.out.println("Apartado B):");
 		Ejercicio4.getRecorrido_E4B(gEsfuerzo);
+		
+		System.out.println("Apartado C):");
+		Set<Calle> callesCortadas = new HashSet<Calle>(); 
+		Calle calle0 = gDuracion.getEdge(getInterseccionId(gEsfuerzo, 1), getInterseccionId(gEsfuerzo, 6)); 
+		Calle calle1 = gDuracion.getEdge(getInterseccionId(gEsfuerzo,4), getInterseccionId(gEsfuerzo, 7));
+		Calle calle2 = gDuracion.getEdge(getInterseccionId(gEsfuerzo, 5), getInterseccionId(gEsfuerzo, 8));
+		Calle calle3 = gDuracion.getEdge(getInterseccionId(gEsfuerzo, 4), getInterseccionId(gEsfuerzo, 6));
+		Calle calle4 = gDuracion.getEdge(getInterseccionId(gEsfuerzo, 7), getInterseccionId(gEsfuerzo, 8));
+		callesCortadas.add(calle0);
+		callesCortadas.add(calle1);
+		callesCortadas.add(calle2);
+		callesCortadas.add(calle3);
+		Ejercicio4.getRecorridoMaxRelevante_E4C(callesCortadas, gDuracion, "ficheros_generados/EJ4ApartadoC1.gv"); 
+		
+		callesCortadas.add(calle4);
+		Ejercicio4.getRecorridoMaxRelevante_E4C(callesCortadas, gDuracion, "ficheros_generados/EJ4ApartadoC2.gv"); 
+	}
+	
+	private static Interseccion getInterseccionId(Graph<Interseccion, Calle> g, Integer i) { 
+		return g.vertexSet().stream().filter(inter-> inter.getId().equals(i))
+			.toList().get(0); 
 	}
 	
 

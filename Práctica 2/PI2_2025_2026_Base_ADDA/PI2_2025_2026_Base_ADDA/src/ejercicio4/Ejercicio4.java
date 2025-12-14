@@ -1,15 +1,22 @@
 package ejercicio4;
 
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.jgrapht.Graph;
 import org.jgrapht.GraphPath;
+import org.jgrapht.alg.connectivity.ConnectivityInspector;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.alg.tour.HeldKarpTSP;
 
 import us.lsi.colors.GraphColors;
 import us.lsi.colors.GraphColors.Color;
+import us.lsi.graphs.views.SubGraphView;
 
 public class Ejercicio4 {
 
@@ -47,7 +54,30 @@ public class Ejercicio4 {
 	}
 	
 	public static Graph<Interseccion,Calle> getRecorridoMaxRelevante_E4C(Set<Calle> cs,Graph <Interseccion, Calle> g, String ftest) {
-		return null;
+		
+		// Predicados:
+		Predicate<Calle> callesNoCortadas = c -> !(cs.stream().mapToInt(Calle::getId).anyMatch(cId -> cId == c.getId()));
+		Function<Set<Interseccion>, Integer> calculoRelevancia = s -> s.stream().mapToInt(Interseccion::getRelevancia).sum(); 
+		
+		// Grafo con todos los vértices y calles que no están cortadas:
+		Graph<Interseccion, Calle> gc = SubGraphView.ofEdges(g, callesNoCortadas);
+		
+		ConnectivityInspector<Interseccion, Calle> ci = new ConnectivityInspector<Interseccion, Calle>(gc);
+		
+		// Agrupar los caminos por su relevancia:
+		Map<Integer, List<Interseccion>> relevanciaCamino = ci.connectedSets().stream().collect(Collectors.toMap(calculoRelevancia, s->s.stream().toList()));
+		
+		List<Interseccion> caminoMasRelevante = relevanciaCamino.entrySet().stream().sorted(Map.Entry.comparingByKey()).toList().getLast().getValue();
+		
+		GraphColors.toDot(gc, ftest, 
+				v->"INT-" + v.getId() + " Relevancia " + v.getRelevancia(), 
+				e->"", 
+				v->GraphColors.colorIf(Color.red, Color.black, caminoMasRelevante.contains(v)), 
+				e->GraphColors.colorIf(Color.red, Color.black, 
+						caminoMasRelevante.contains(gc.getEdgeSource(e)) || caminoMasRelevante.contains(gc.getEdgeTarget(e)))
+				);
+		
+		return gc;
 	}
 		
 }
